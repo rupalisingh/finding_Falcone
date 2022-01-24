@@ -1,248 +1,113 @@
-import React from "react";
-import './Main.css'
+import React, { useState, useEffect } from "react";
+
+import axios from "axios";
+import "./Main.css";
+
 function Main() {
+  const [error, setError] = useState();
+  const [destination, setDestination] = useState([{}]);
+  const [vehicles, setVehicles] = useState([{}]);
+  const [selectedDestinations, setSelectedDestinations] = useState([{}]);
+  let destination_count = [
+    "Destination 1",
+    "Destination 2",
+    "Destination 3",
+    "Destination 4",
+  ];
+
+  const getAllVehicles = async () => {
+    try {
+      const response = await axios.get(
+        "https://findfalcone.herokuapp.com/vehicles"
+      );
+      const data = response.data;
+      return data;
+      //console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getAllDestinations = async () => {
+    try {
+      const response = await axios.get(
+        "https://findfalcone.herokuapp.com/planets"
+      );
+      const data = response.data;
+      return data;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const AddDestinations = (e) => {
+    setSelectedDestinations(e.target.value);
+    console.log(selectedDestinations);
+  };
+
+  useEffect(() => {
+    (async () => {
+      let dest_res = await getAllDestinations();
+      let vehicle_res = await getAllVehicles();
+      // console.log(vehicle_res)
+      setDestination(dest_res);
+      setVehicles(vehicle_res);
+    })();
+  }, [setDestination, setVehicles]);
+
   return (
     <>
       <div className="Header">Finding Falcone</div>
       <div className="main-body">
         <div className="body-header">Select Planet you want to Search in:</div>
-        <div className="destination_vehicle">
-          <div className="select-destination">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <button
-                  class="btn btn-outline-secondary dropdown-toggle"
-                  type="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Destination 1
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">
-                    Action
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    Another action
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                  <div role="separator" class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">
-                    Separated link
-                  </a>
+        <div className="Destination_card">
+          {destination_count.map((i) => {
+            return (
+              <>
+                <div className="each_card">
+                  <form action="#">
+                    <label for="lang">{i}</label>
+                    <select
+                      name="languages"
+                      id="lang"
+                      onChange={AddDestinations}
+                    >
+                      <option>Default</option>
+                      {destination.map((value) => {
+                        return (
+                          <>
+                            <option value={value.name}>{value.name}</option>
+                          </>
+                        );
+                      })}
+                    </select>
+                    <div className="select_vehicles">
+                      {vehicles.map((value) => {
+                        return (
+                          <>
+                            <input
+                              type="radio"
+                              id="html"
+                              name="fav_language"
+                              value="HTML"
+                            />
+                            <label for="HTML">
+                              {value.name} ({value.total_no})
+                            </label>
+                            <br></br>
+                          </>
+                        );
+                      })}
+                    </div>
+                  </form>
                 </div>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                aria-label="Text input with dropdown button"
-              />
-              <div class="form-check">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="radio1"
-                  name="optradio"
-                  value="option1"
-                  checked
-                />
-                Option 1<label class="form-check-label" for="radio1"></label>
-              </div>
-              <div class="form-check">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="radio2"
-                  name="optradio"
-                  value="option2"
-                />
-                Option 2<label class="form-check-label" for="radio2"></label>
-              </div>
-              <div class="form-check">
-                <input type="radio" class="form-check-input" disabled />
-                Option 3<label class="form-check-label"></label>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <button
-                  class="btn btn-outline-secondary dropdown-toggle"
-                  type="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Destination 1
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">
-                    Action
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    Another action
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                  <div role="separator" class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">
-                    Separated link
-                  </a>
-                </div>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                aria-label="Text input with dropdown button"
-              />
-              <div class="form-check">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="radio1"
-                  name="optradio"
-                  value="option1"
-                  checked
-                />
-                Option 1<label class="form-check-label" for="radio1"></label>
-              </div>
-              <div class="form-check">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="radio2"
-                  name="optradio"
-                  value="option2"
-                />
-                Option 2<label class="form-check-label" for="radio2"></label>
-              </div>
-              <div class="form-check">
-                <input type="radio" class="form-check-input" disabled />
-                Option 3<label class="form-check-label"></label>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <button
-                  class="btn btn-outline-secondary dropdown-toggle"
-                  type="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Destination 3
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">
-                    Action
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    Another action
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                  <div role="separator" class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">
-                    Separated link
-                  </a>
-                </div>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                aria-label="Text input with dropdown button"
-              />
-              <div class="form-check">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="radio1"
-                  name="optradio"
-                  value="option1"
-                  checked
-                />
-                Option 1<label class="form-check-label" for="radio1"></label>
-              </div>
-              <div class="form-check">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="radio2"
-                  name="optradio"
-                  value="option2"
-                />
-                Option 2<label class="form-check-label" for="radio2"></label>
-              </div>
-              <div class="form-check">
-                <input type="radio" class="form-check-input" disabled />
-                Option 3<label class="form-check-label"></label>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <button
-                  class="btn btn-outline-secondary dropdown-toggle"
-                  type="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Destination 4
-                </button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#">
-                    Action
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    Another action
-                  </a>
-                  <a class="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                  <div role="separator" class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">
-                    Separated link
-                  </a>
-                </div>
-              </div>
-              <input
-                type="text"
-                class="form-control"
-                aria-label="Text input with dropdown button"
-              />
-              <div class="form-check">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="radio1"
-                  name="optradio"
-                  value="option1"
-                  checked
-                />
-                Option 1<label class="form-check-label" for="radio1"></label>
-              </div>
-              <div class="form-check">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  id="radio2"
-                  name="optradio"
-                  value="option2"
-                />
-                Option 2<label class="form-check-label" for="radio2"></label>
-              </div>
-              <div class="form-check">
-                <input type="radio" class="form-check-input" disabled />
-                Option 3<label class="form-check-label"></label>
-              </div>
-            </div>
-          </div>
+              </>
+            );
+          })}
         </div>
-        <button type= "button" className="btn btn-primary">Find Falcone</button>
+        <button type="button" className="btn btn-primary">
+          Find Falcone
+        </button>
       </div>
     </>
   );
