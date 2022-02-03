@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-
 import axios from "axios";
+import Destination from "../src/Components/Destination";
 import "./Main.css";
 
 function Main() {
@@ -40,11 +40,6 @@ function Main() {
     }
   };
 
-  const AddDestinations = (e) => {
-    setSelectedDestinations(e.target.value);
-    console.log(selectedDestinations);
-  };
-
   useEffect(() => {
     (async () => {
       let dest_res = await getAllDestinations();
@@ -53,7 +48,7 @@ function Main() {
       setDestination(dest_res);
       setVehicles(vehicle_res);
     })();
-  }, [setDestination, setVehicles]);
+  }, []);
 
   return (
     <>
@@ -61,49 +56,10 @@ function Main() {
       <div className="main-body">
         <div className="body-header">Select Planet you want to Search in:</div>
         <div className="Destination_card">
-          {destination_count.map((i) => {
-            return (
-              <>
-                <div className="each_card">
-                  <form action="#">
-                    <label for="lang">{i}</label>
-                    <select
-                      name="languages"
-                      id="lang"
-                      onChange={AddDestinations}
-                    >
-                      <option>Default</option>
-                      {destination.map((value) => {
-                        return (
-                          <>
-                            <option value={value.name}>{value.name}</option>
-                          </>
-                        );
-                      })}
-                    </select>
-                    <div className="select_vehicles">
-                      {vehicles.map((value) => {
-                        return (
-                          <>
-                            <input
-                              type="radio"
-                              id="html"
-                              name="fav_language"
-                              value="HTML"
-                            />
-                            <label for="HTML">
-                              {value.name} ({value.total_no})
-                            </label>
-                            <br></br>
-                          </>
-                        );
-                      })}
-                    </div>
-                  </form>
-                </div>
-              </>
-            );
-          })}
+          <Destination
+            destination_count={destination_count}
+            Destination_list={destination}
+          />
         </div>
         <button type="button" className="btn btn-primary">
           Find Falcone
