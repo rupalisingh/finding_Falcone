@@ -1,70 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Destination from "../src/Components/Destination";
-import "./Main.css";
+import Destination from "./Components/Destination";
+
+// const Allplanets = [
+//   {
+//     name: "john",
+//     distance: 1
+//   },
+//   {
+//     label: "joe",
+//     value: 2
+//   },
+//   {
+//     label: "joel",
+//     value: 3
+//   },
+//   {
+//     label: "jackie",
+//     value: 4
+//   }
+// ];
 
 function Main() {
-  const [error, setError] = useState();
-  const [destination, setDestination] = useState([{}]);
-  const [vehicles, setVehicles] = useState([{}]);
-  const [selectedDestinations, setSelectedDestinations] = useState([{}]);
-  let destination_count = [
-    "Destination 1",
-    "Destination 2",
-    "Destination 3",
-    "Destination 4",
-  ];
+  const [Allplanets, SetAllPlanets] = useState([{}]);
 
-  const getAllVehicles = async () => {
-    try {
-      const response = await axios.get(
-        "https://findfalcone.herokuapp.com/vehicles"
-      );
-      const data = response.data;
-      return data;
-      //console.log(data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const getAllDestinations = async () => {
-    try {
-      const response = await axios.get(
-        "https://findfalcone.herokuapp.com/planets"
-      );
-      const data = response.data;
-      return data;
-    } catch (e) {
-      console.log(e);
-    }
+  const getPlanets = async () => {
+    let response = await axios.get("https://findfalcone.herokuapp.com/planets");
+    return response.data
   };
 
   useEffect(() => {
     (async () => {
-      let dest_res = await getAllDestinations();
-      let vehicle_res = await getAllVehicles();
-      // console.log(vehicle_res)
-      setDestination(dest_res);
-      setVehicles(vehicle_res);
+      let res = await getPlanets();
+      SetAllPlanets(res)
     })();
-  }, []);
+  },[SetAllPlanets]);
 
   return (
     <>
-      <div className="Header">Finding Falcone</div>
-      <div className="main-body">
-        <div className="body-header">Select Planet you want to Search in:</div>
-        <div className="Destination_card">
-          <Destination
-            destination_count={destination_count}
-            Destination_list={destination}
-          />
-        </div>
-        <button type="button" className="btn btn-primary">
-          Find Falcone
-        </button>
-      </div>
+      <div>Finding Falcone</div>
+      {
+        Allplanets.length > 1 ? <Destination planets={Allplanets} /> : <></>
+
+      }
     </>
   );
 }

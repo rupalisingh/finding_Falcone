@@ -1,42 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
+// import { Card, FormControl, InputLabel } from "@mui/material";
+import "../css/Destination.css";
 
 function Destination(props) {
-  let arr = [];
-  const getSelectedValue = () => {
-    let list = document.querySelectorAll("#destination");
-    arr = [];
-    for (let i = 0; i < list.length; i++) {
-      arr.push(list[i].value);
-    } 
-    console.log(arr);
-    return arr;
+  const [selectedPlanets, SetselectedPlanets] = useState([
+    null,
+    null,
+    null,
+    null,
+  ]);
+
+  const OnSelectPlanet = async (e, key) => {
+    const clonedSelectedPlanets = JSON.parse(JSON.stringify(selectedPlanets));
+    clonedSelectedPlanets[key] = e.target.value;
+    SetselectedPlanets(clonedSelectedPlanets);
   };
+
+  const CustomSelectComponents = ({ value, options, OnSelect}) => {
+    return (
+      <select value={value} onChange={OnSelect}>
+        <option> -- Select a Planet -- </option>
+        {options.map((option) => {
+          return <option key = {option.name} value={option.name} >{option.name}</option>;
+        })}
+      </select>
+    );
+  };
+
+  const OptionsToRender = (Alloptions, AllselectedOptions, index) => {
+    console.log(AllselectedOptions);
+    const optionstoRender =
+      AllselectedOptions[index] != null
+        ? Alloptions.filter(
+            (option) =>
+              !AllselectedOptions.some(
+                (selectedOption) =>
+                  option && selectedOption && option.name === selectedOption
+              )
+          )
+        : Alloptions;
+    return optionstoRender;
+  };
+
   return (
     <>
-      {props.destination_count.map((i) => {
-        return (
-          <div className="each_card">
-            <form action="#">
-              <label for="destination">{i}</label>
-              <select
-                name="languages"
-                id="destination"
-                onChange={getSelectedValue}
-              >
-                <option>Default</option>
-                {props.Destination_list.map((value) => {
-                  console.log(arr.includes(value.name), value.name, arr);
-                  return (
-                    <>
-                      <option value={value.name}>{value.name}</option>
-                    </>
-                  );
-                })}
-              </select>
-            </form>
-          </div>
-        );
-      })}
+      <div className="Parent_Card">
+        {selectedPlanets.map((planet, index) => {
+          const options = OptionsToRender(props.planets, selectedPlanets, index);
+          return (
+            <>
+            {console.log(index)}
+            <CustomSelectComponents
+              value={
+                selectedPlanets[index] != null ? selectedPlanets[index] : ""
+              }
+              options={options}
+              OnSelect={(e) => OnSelectPlanet(e, index)}
+              key={index}
+            />
+            </>
+          );
+        })}
+      </div>
     </>
   );
 }

@@ -1,0 +1,14 @@
+.Parent_Card {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid red;
+    justify-content: space-evenly;
+
+}
+
+
+.Planet_card {
+    height: 15rem;
+    width: 15rem;
+
+}
