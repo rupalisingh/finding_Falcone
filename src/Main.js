@@ -23,24 +23,32 @@ import Destination from "./Components/Destination";
 
 function Main() {
   const [Allplanets, SetAllPlanets] = useState([{}]);
+  const [AllVehicles, SetAllVehicles] = useState([{}])
 
   const getPlanets = async () => {
     let response = await axios.get("https://findfalcone.herokuapp.com/planets");
     return response.data
   };
 
+  const getVehicles = async() => {
+    let response = await axios.get("https://findfalcone.herokuapp.com/vehicles")
+    return response.data
+  }
+
   useEffect(() => {
     (async () => {
-      let res = await getPlanets();
-      SetAllPlanets(res)
+      let res_P = await getPlanets();
+      let res_V = await getVehicles();
+      SetAllPlanets(res_P)
+      SetAllVehicles(res_V)
     })();
-  },[SetAllPlanets]);
+  },[SetAllPlanets, SetAllVehicles]);
 
   return (
     <>
       <div>Finding Falcone</div>
       {
-        Allplanets.length > 1 ? <Destination planets={Allplanets} /> : <></>
+        Allplanets.length > 1 && AllVehicles.length > 1 ? <Destination planets={Allplanets} vehicles = {AllVehicles} /> : <></>
 
       }
     </>

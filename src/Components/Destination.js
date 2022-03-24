@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Vehicles from "./Vehicles";
 // import { Card, FormControl, InputLabel } from "@mui/material";
 import "../css/Destination.css";
 
@@ -30,7 +31,7 @@ function Destination(props) {
   const OptionsToRender = (Alloptions, AllselectedOptions, index) => {
     console.log(AllselectedOptions);
     const optionstoRender =
-      AllselectedOptions[index] != null
+      AllselectedOptions[index] === null
         ? Alloptions.filter(
             (option) =>
               !AllselectedOptions.some(
@@ -58,6 +59,9 @@ function Destination(props) {
               OnSelect={(e) => OnSelectPlanet(e, index)}
               key={index}
             />
+
+            {selectedPlanets[index] != null ? <Vehicles selectedPlanets = {selectedPlanets} Vehicles = {props.vehicles} Destination = {props.planets}/> : <></>}
+
             </>
           );
         })}
