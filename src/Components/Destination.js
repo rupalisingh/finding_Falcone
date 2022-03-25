@@ -11,6 +11,18 @@ function Destination(props) {
     null,
   ]);
 
+  const [selectedVehicle, SetselectedVehicle] = useState([
+    null,
+    null,
+    null,
+    null,
+  ]);
+
+  const OnSelectVehicle = (e, key) => {
+    const clonedSelectedVehicle = JSON.parse(JSON.stringify(selectedVehicle));
+    clonedSelectedVehicle[key] = e.target.value;
+    SetselectedVehicle(clonedSelectedVehicle);
+  };
 
   const OnSelectPlanet = (e, key) => {
     const clonedSelectedPlanets = JSON.parse(JSON.stringify(selectedPlanets));
@@ -18,12 +30,16 @@ function Destination(props) {
     SetselectedPlanets(clonedSelectedPlanets);
   };
 
-  const CustomSelectComponents = ({ value, options, OnSelect}) => {
+  const CustomSelectComponents = ({ value, options, OnSelect }) => {
     return (
       <select value={value} onChange={OnSelect}>
         <option> -- Select a Planet -- </option>
         {options.map((option) => {
-          return <option key = {option.name} value={option.name} >{option.name}</option>;
+          return (
+            <option key={option.name} value={option.name}>
+              {option.name}
+            </option>
+          );
         })}
       </select>
     );
@@ -48,21 +64,35 @@ function Destination(props) {
     <>
       <div className="Parent_Card">
         {selectedPlanets.map((planet, index) => {
-          const options = OptionsToRender(props.planets, selectedPlanets, index);
+          const options = OptionsToRender(
+            props.planets,
+            selectedPlanets,
+            index
+          );
           return (
             <>
-            {/* {console.log(index)} */}
-            <CustomSelectComponents
-              value={
-                selectedPlanets[index] != null ? selectedPlanets[index] : ""
-              }
-              options={options}
-              OnSelect={(e) => OnSelectPlanet(e, index)}
-              key={index}
-            />
+              {/* {console.log(index)} */}
+              <CustomSelectComponents
+                value={
+                  selectedPlanets[index] != null ? selectedPlanets[index] : ""
+                }
+                options={options}
+                OnSelect={(e) => OnSelectPlanet(e, index)}
+                key={index}
+              />
 
-            {selectedPlanets[index] != null ? <Vehicles selectedPlanets = {selectedPlanets} Vehicles = {props.vehicles} Destination = {props.planets} index = {index}/> : <></> }
-
+              {selectedPlanets[index] != null ? (
+                <Vehicles
+                  selectedPlanets={selectedPlanets}
+                  Vehicles={props.vehicles}
+                  Destination={props.planets}
+                  index={index}
+                  selectedVehicle={selectedVehicle}
+                  triggerSelectVehicleUpdate={OnSelectVehicle}
+                />
+              ) : (
+                <></>
+              )}
             </>
           );
         })}

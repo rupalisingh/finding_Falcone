@@ -11,23 +11,11 @@ import {
 
 function Vehicles(props) {
 
-  const [selectedVehicle, SetselectedVehicle] = useState([
-    null,
-    null,
-    null,
-    null,
-  ]);
-
-  const handleChange =  (e, index) => {
-    const clonedSelectedVehicle = JSON.parse(JSON.stringify(selectedVehicle));
-    clonedSelectedVehicle[index] = e.target.value;
-    SetselectedVehicle(clonedSelectedVehicle);
-  };
   
   useEffect(() => {
-    console.log(selectedVehicle)
+    // console.log(selectedVehicle)
     
-  }, [selectedVehicle])
+  }, [props.selectedVehicle])
   
 
   // const handleSelect = (index) => {
@@ -40,11 +28,12 @@ function Vehicles(props) {
       <FormLabel id="demo-controlled-radio-buttons-group">
         Select Vehicle
       </FormLabel>
+      {console.log(props)}
       <RadioGroup
         aria-labelledby="demo-controlled-radio-buttons-group"
         name="controlled-radio-buttons-group"
-        value={selectedVehicle[props.index]}
-        onChange={(e) => handleChange(e, props.index)}
+        value={props.selectedVehicle[props.index]}
+        onChange={(e) => props.triggerSelectVehicleUpdate(e, props.index)}
       >
         {props.Vehicles.map((vehicle, index) => {
           return (
