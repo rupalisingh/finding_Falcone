@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FormControl,
   FormLabel,
@@ -7,12 +7,34 @@ import {
   Radio,
 } from "@mui/material";
 
-function Vehicles(props) {
-  const [selectedVehicle, SetselectedVehicle] = useState();
 
-  const handleChange = (e) => {
-    SetselectedVehicle(e.target.vehicle);
+
+function Vehicles(props) {
+
+  const [selectedVehicle, SetselectedVehicle] = useState([
+    null,
+    null,
+    null,
+    null,
+  ]);
+
+  const handleChange =  (e, index) => {
+    const clonedSelectedVehicle = JSON.parse(JSON.stringify(selectedVehicle));
+    clonedSelectedVehicle[index] = e.target.value;
+    SetselectedVehicle(clonedSelectedVehicle);
   };
+  
+  useEffect(() => {
+    console.log(selectedVehicle)
+    
+  }, [selectedVehicle])
+  
+
+  // const handleSelect = (index) => {
+  //   console.log(props.Vehicles[index])
+  //   props.Vehicles[index].total_no -= 1;
+  // };
+
   return (
     <FormControl>
       <FormLabel id="demo-controlled-radio-buttons-group">
@@ -21,14 +43,17 @@ function Vehicles(props) {
       <RadioGroup
         aria-labelledby="demo-controlled-radio-buttons-group"
         name="controlled-radio-buttons-group"
-        value={selectedVehicle}
-        onChange={handleChange}
+        value={selectedVehicle[props.index]}
+        onChange={(e) => handleChange(e, props.index)}
       >
-        {props.Vehicles.map((vehicle) => {
+        {props.Vehicles.map((vehicle, index) => {
           return (
             <>
-            {console.log(vehicle)}
-              <FormControlLabel value={vehicle.name} control={<Radio />} label = {vehicle.name}/>
+              <FormControlLabel
+                value={vehicle.name}
+                control={<Radio />}
+                label={vehicle.name + "(" + vehicle.total_no + ")"}
+              />
             </>
           );
         })}

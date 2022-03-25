@@ -11,7 +11,8 @@ function Destination(props) {
     null,
   ]);
 
-  const OnSelectPlanet = async (e, key) => {
+
+  const OnSelectPlanet = (e, key) => {
     const clonedSelectedPlanets = JSON.parse(JSON.stringify(selectedPlanets));
     clonedSelectedPlanets[key] = e.target.value;
     SetselectedPlanets(clonedSelectedPlanets);
@@ -29,7 +30,7 @@ function Destination(props) {
   };
 
   const OptionsToRender = (Alloptions, AllselectedOptions, index) => {
-    console.log(AllselectedOptions);
+    // console.log(AllselectedOptions);
     const optionstoRender =
       AllselectedOptions[index] === null
         ? Alloptions.filter(
@@ -50,7 +51,7 @@ function Destination(props) {
           const options = OptionsToRender(props.planets, selectedPlanets, index);
           return (
             <>
-            {console.log(index)}
+            {/* {console.log(index)} */}
             <CustomSelectComponents
               value={
                 selectedPlanets[index] != null ? selectedPlanets[index] : ""
@@ -60,7 +61,7 @@ function Destination(props) {
               key={index}
             />
 
-            {selectedPlanets[index] != null ? <Vehicles selectedPlanets = {selectedPlanets} Vehicles = {props.vehicles} Destination = {props.planets}/> : <></>}
+            {selectedPlanets[index] != null ? <Vehicles selectedPlanets = {selectedPlanets} Vehicles = {props.vehicles} Destination = {props.planets} index = {index}/> : <></> }
 
             </>
           );
