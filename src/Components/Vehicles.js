@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   FormControl,
   FormLabel,
@@ -7,28 +7,28 @@ import {
   Radio,
 } from "@mui/material";
 
-
-
 function Vehicles(props) {
 
-  
+  const handleVehiclesLeft = (index) => {
+    // console.log(selectedVehicle);
+    const SelectedVehicleName = props.selectedVehicle[index];
+    props.Vehicles.map((vehicle) =>
+      vehicle.name === SelectedVehicleName ? (vehicle.total_no -= 1) : ""
+    );
+  };
+
   useEffect(() => {
     // console.log(selectedVehicle)
-    
-  }, [props.selectedVehicle])
-  
+    handleVehiclesLeft(props.index)
+  }, [props.selectedVehicle]);
 
-  // const handleSelect = (index) => {
-  //   console.log(props.Vehicles[index])
-  //   props.Vehicles[index].total_no -= 1;
-  // };
+
 
   return (
     <FormControl>
       <FormLabel id="demo-controlled-radio-buttons-group">
         Select Vehicle
       </FormLabel>
-      {console.log(props)}
       <RadioGroup
         aria-labelledby="demo-controlled-radio-buttons-group"
         name="controlled-radio-buttons-group"
@@ -40,7 +40,7 @@ function Vehicles(props) {
             <>
               <FormControlLabel
                 value={vehicle.name}
-                control={<Radio />}
+                control={<Radio disabled = {vehicle.total_no <= 0} />}
                 label={vehicle.name + "(" + vehicle.total_no + ")"}
               />
             </>

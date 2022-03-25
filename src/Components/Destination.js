@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Vehicles from "./Vehicles";
 // import { Card, FormControl, InputLabel } from "@mui/material";
 import "../css/Destination.css";
 
 function Destination(props) {
+
+  let ind = 0
   const [selectedPlanets, SetselectedPlanets] = useState([
     null,
     null,
@@ -18,10 +20,14 @@ function Destination(props) {
     null,
   ]);
 
+  
+
   const OnSelectVehicle = (e, key) => {
+    ind = key
     const clonedSelectedVehicle = JSON.parse(JSON.stringify(selectedVehicle));
     clonedSelectedVehicle[key] = e.target.value;
     SetselectedVehicle(clonedSelectedVehicle);
+    console.log(selectedVehicle);
   };
 
   const OnSelectPlanet = (e, key) => {
@@ -60,6 +66,10 @@ function Destination(props) {
     return optionstoRender;
   };
 
+  useEffect(() => {
+    console.log(ind)
+  }, [selectedPlanets, selectedVehicle]);
+
   return (
     <>
       <div className="Parent_Card">
@@ -71,7 +81,6 @@ function Destination(props) {
           );
           return (
             <>
-              {/* {console.log(index)} */}
               <CustomSelectComponents
                 value={
                   selectedPlanets[index] != null ? selectedPlanets[index] : ""
@@ -80,7 +89,6 @@ function Destination(props) {
                 OnSelect={(e) => OnSelectPlanet(e, index)}
                 key={index}
               />
-
               {selectedPlanets[index] != null ? (
                 <Vehicles
                   selectedPlanets={selectedPlanets}
