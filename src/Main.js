@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Button from '@mui/material/Button';
 import Destination from "./Components/Destination";
 import Navbar from "./Components/Navbar";
 
@@ -32,11 +33,18 @@ function Main() {
     <>
       <Navbar />
       <div className="heading">Finding Falcone</div>
-      {Allplanets.length > 1 && AllVehicles.length > 1 ? (
-        <Destination planets={Allplanets} vehicles={AllVehicles} />
-      ) : (
-        <></>
-      )}
+      <div className="subheading">Select Planets you want to Search in!!</div>
+      <div className="center-body">
+        <div className="Destination-select">
+          {Allplanets.length > 1 && AllVehicles.length > 1 ? (
+            <Destination planets={Allplanets} vehicles={AllVehicles} />
+          ) : (
+            <></>
+          )}
+        </div>
+        <div className="time-taken">Time Taken</div>
+      </div>
+      <Button className="button" variant="contained">Find Falcone!</Button>
     </>
   );
 }

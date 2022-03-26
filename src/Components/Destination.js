@@ -4,7 +4,6 @@ import Vehicles from "./Vehicles";
 import "../css/Destination.css";
 
 function Destination(props) {
-
   const [selectedPlanets, SetselectedPlanets] = useState([
     null,
     null,
@@ -19,23 +18,21 @@ function Destination(props) {
     null,
   ]);
 
-  const [vehicleCount, setVehicleCount] = useState([null, null, null, null])
+  const [vehicleCount, setVehicleCount] = useState([null, null, null, null]);
 
   const HandleVehicleCount = (Allvehicle) => {
-    const clonedVehicleCount = JSON.parse(JSON.stringify(vehicleCount))
-    Allvehicle.map((vehicle, key) => clonedVehicleCount[key] = vehicle.total_no )
-    setVehicleCount(clonedVehicleCount)
-
-  }
+    const clonedVehicleCount = JSON.parse(JSON.stringify(vehicleCount));
+    Allvehicle.map(
+      (vehicle, key) => (clonedVehicleCount[key] = vehicle.total_no)
+    );
+    setVehicleCount(clonedVehicleCount);
+  };
 
   const OnSelectVehicle = (e, key) => {
-    const clonedSelectedVehicle = JSON.parse(JSON.stringify(selectedVehicle))
-    clonedSelectedVehicle[key] = e.target.value
-    setSelectedVehicle(clonedSelectedVehicle)
-    
-
-
-  }
+    const clonedSelectedVehicle = JSON.parse(JSON.stringify(selectedVehicle));
+    clonedSelectedVehicle[key] = e.target.value;
+    setSelectedVehicle(clonedSelectedVehicle);
+  };
 
   const OnSelectPlanet = (e, key) => {
     const clonedSelectedPlanets = JSON.parse(JSON.stringify(selectedPlanets));
@@ -73,7 +70,7 @@ function Destination(props) {
   };
 
   useEffect(() => {
-    HandleVehicleCount(props.vehicles)
+    HandleVehicleCount(props.vehicles);
   }, [selectedPlanets]);
 
   return (
@@ -87,27 +84,29 @@ function Destination(props) {
           );
           return (
             <>
-              <CustomSelectComponents
-                value={
-                  selectedPlanets[index] != null ? selectedPlanets[index] : ""
-                }
-                options={options}
-                OnSelect={(e) => OnSelectPlanet(e, index)}
-                key={index}
-              />
-              {selectedPlanets[index] != null ? (
-                <Vehicles
-                  selectedPlanets={selectedPlanets}
-                  Vehicles={props.vehicles}
-                  Destination={props.planets}
-                  selectedVehicle = {selectedVehicle}
-                  OnSelectVehicle = {OnSelectVehicle}
-                  vehicleCount = {vehicleCount}
-                  index={index}
+              <div className="PlanetsAndVehicles">
+                <CustomSelectComponents
+                  value={
+                    selectedPlanets[index] != null ? selectedPlanets[index] : ""
+                  }
+                  options={options}
+                  OnSelect={(e) => OnSelectPlanet(e, index)}
+                  key={index}
                 />
-              ) : (
-                <></>
-              )}
+                {selectedPlanets[index] != null ? (
+                  <Vehicles
+                    selectedPlanets={selectedPlanets}
+                    Vehicles={props.vehicles}
+                    Destination={props.planets}
+                    selectedVehicle={selectedVehicle}
+                    OnSelectVehicle={OnSelectVehicle}
+                    vehicleCount={vehicleCount}
+                    index={index}
+                  />
+                ) : (
+                  <></>
+                )}
+              </div>
             </>
           );
         })}

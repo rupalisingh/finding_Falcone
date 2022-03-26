@@ -5,6 +5,23 @@
     text-align-last: center;
 }
 
+.subheading{
+    font-size: 50px;
+    font-variant-caps: petite-caps;
+    font-weight: 700;
+    text-align-last: center;
+    margin-bottom: 73px;
+}
+
+.center-body{
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.Destination-select{
+    width: 100%;
+}
 
 .Parent_Card {
     display: flex;
@@ -13,10 +30,16 @@
     justify-content: space-evenly;
 
 }
-
-
 .Planet_card {
     height: 15rem;
     width: 15rem;
 
+}
+.PlanetsAndVehicles{
+    display: flex;
+    flex-flow: column;
+}
+
+.button{
+    
 }
