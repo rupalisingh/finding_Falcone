@@ -1,3 +1,11 @@
+.heading{
+    font-size: 62px;
+    font-variant-caps: petite-caps;
+    font-weight: 700;
+    text-align-last: center;
+}
+
+
 .Parent_Card {
     display: flex;
     flex-direction: row;

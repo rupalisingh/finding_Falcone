@@ -19,12 +19,23 @@ function Destination(props) {
     null,
   ]);
 
+  const [vehicleCount, setVehicleCount] = useState([null, null, null, null])
+
+  const HandleVehicleCount = (Allvehicle) => {
+    const clonedVehicleCount = JSON.parse(JSON.stringify(vehicleCount))
+    Allvehicle.map((vehicle, key) => clonedVehicleCount[key] = vehicle.total_no )
+    setVehicleCount(clonedVehicleCount)
+
+  }
+
   const OnSelectVehicle = (e, key) => {
     const clonedSelectedVehicle = JSON.parse(JSON.stringify(selectedVehicle))
     clonedSelectedVehicle[key] = e.target.value
     setSelectedVehicle(clonedSelectedVehicle)
-  }
+    
 
+
+  }
 
   const OnSelectPlanet = (e, key) => {
     const clonedSelectedPlanets = JSON.parse(JSON.stringify(selectedPlanets));
@@ -62,6 +73,7 @@ function Destination(props) {
   };
 
   useEffect(() => {
+    HandleVehicleCount(props.vehicles)
   }, [selectedPlanets]);
 
   return (
@@ -90,6 +102,7 @@ function Destination(props) {
                   Destination={props.planets}
                   selectedVehicle = {selectedVehicle}
                   OnSelectVehicle = {OnSelectVehicle}
+                  vehicleCount = {vehicleCount}
                   index={index}
                 />
               ) : (

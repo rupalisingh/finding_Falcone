@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   FormControl,
   FormLabel,
@@ -9,9 +9,24 @@ import {
 
 function Vehicles(props) {
 
+  const handleVehicleCount = (selectedVehicle, vehicleCount, AllVehicles) => {
+    AllVehicles.map((vehicle, key) =>
+      selectedVehicle.includes(vehicle.name)
+        ? (vehicleCount[key] -= 1)
+        : vehicleCount[key] === vehicle.total_no
+    );
+
+    console.log(vehicleCount);
+  };
+
   useEffect(() => {
-    console.log(props.selectedVehicle)
-  }, [props.selectedVehicle]);
+    // handleVehicleCount(
+    //   props.selectedVehicle,
+    //   props.vehicleCount,
+    //   props.Vehicles
+    // );
+    // console.log(props.Vehicles.total_no)
+  }, [props.selectedVehicle, props.vehicleCount]);
 
   return (
     <FormControl>
@@ -22,7 +37,9 @@ function Vehicles(props) {
         aria-labelledby="demo-controlled-radio-buttons-group"
         name="controlled-radio-buttons-group"
         value={props.selectedVehicle[props.index]}
-        onChange={(e) => props.OnSelectVehicle(e, props.index)}
+        onChange={(e) => {props.OnSelectVehicle(e, props.index) ; handleVehicleCount(props.selectedVehicle,
+          props.vehicleCount,
+          props.Vehicles)}}
       >
         {props.Vehicles.map((vehicle, index) => {
           return (
@@ -30,9 +47,9 @@ function Vehicles(props) {
               <FormControlLabel
                 value={vehicle.name}
                 control={
-                  <Radio disabled={vehicle.total_no <= 0 ? true : false} />
+                  <Radio disabled={props.vehicleCount[index] <= 0 ? true : false} />
                 }
-                label={vehicle.name + "(" + vehicle.total_no + ")"}
+                label={vehicle.name + "(" + props.vehicleCount[index] + ")"}
               />
             </>
           );
