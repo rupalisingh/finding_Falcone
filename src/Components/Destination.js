@@ -5,7 +5,6 @@ import "../css/Destination.css";
 
 function Destination(props) {
 
-  let ind = 0
   const [selectedPlanets, SetselectedPlanets] = useState([
     null,
     null,
@@ -13,22 +12,19 @@ function Destination(props) {
     null,
   ]);
 
-  const [selectedVehicle, SetselectedVehicle] = useState([
+  const [selectedVehicle, setSelectedVehicle] = useState([
     null,
     null,
     null,
     null,
   ]);
 
-  
-
   const OnSelectVehicle = (e, key) => {
-    ind = key
-    const clonedSelectedVehicle = JSON.parse(JSON.stringify(selectedVehicle));
-    clonedSelectedVehicle[key] = e.target.value;
-    SetselectedVehicle(clonedSelectedVehicle);
-    console.log(selectedVehicle);
-  };
+    const clonedSelectedVehicle = JSON.parse(JSON.stringify(selectedVehicle))
+    clonedSelectedVehicle[key] = e.target.value
+    setSelectedVehicle(clonedSelectedVehicle)
+  }
+
 
   const OnSelectPlanet = (e, key) => {
     const clonedSelectedPlanets = JSON.parse(JSON.stringify(selectedPlanets));
@@ -52,7 +48,6 @@ function Destination(props) {
   };
 
   const OptionsToRender = (Alloptions, AllselectedOptions, index) => {
-    // console.log(AllselectedOptions);
     const optionstoRender =
       AllselectedOptions[index] === null
         ? Alloptions.filter(
@@ -67,8 +62,7 @@ function Destination(props) {
   };
 
   useEffect(() => {
-    console.log(ind)
-  }, [selectedPlanets, selectedVehicle]);
+  }, [selectedPlanets]);
 
   return (
     <>
@@ -94,9 +88,9 @@ function Destination(props) {
                   selectedPlanets={selectedPlanets}
                   Vehicles={props.vehicles}
                   Destination={props.planets}
+                  selectedVehicle = {selectedVehicle}
+                  OnSelectVehicle = {OnSelectVehicle}
                   index={index}
-                  selectedVehicle={selectedVehicle}
-                  triggerSelectVehicleUpdate={OnSelectVehicle}
                 />
               ) : (
                 <></>
