@@ -4,7 +4,7 @@ import axios from "axios";
 export const AuthContext = React.createContext();
 
 function AuthProvider({ children }) {
-  const [Allplanets, SetAllPlanets] = useState([{}]);
+  const [AllPlanets, SetAllPlanets] = useState([{}]);
   const [AllVehicles, SetAllVehicles] = useState([{}]);
 
   const getPlanets = async () => {
@@ -25,12 +25,11 @@ function AuthProvider({ children }) {
       let res_V = await getVehicles();
       SetAllPlanets(res_P);
       SetAllVehicles(res_V);
-      console.log(Allplanets);
     })();
   }, []);
 
   const value = {
-    Allplanets,
+    AllPlanets,
     AllVehicles,
   };
 

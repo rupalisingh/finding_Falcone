@@ -5,8 +5,8 @@ import Navbar from "./Components/Navbar";
 import {AuthContext} from "../src/Context/AuthProvider"
 
 function Main() {
-const {Allplanets, Allvehicles} = useContext(AuthContext)
-
+const {AllPlanets, AllVehicles} = useContext(AuthContext)
+console.log(AllPlanets, AllVehicles)
 return (
   <>
       <Navbar />
@@ -14,8 +14,8 @@ return (
       <div className="subheading">Select Planets you want to Search in!!</div>
       <div className="center-body">
         <div className="Destination-select">
-          {Allplanets && Allvehicles? (
-            <Destination planets={Allplanets} vehicles={Allvehicles} />
+          {AllPlanets && AllVehicles? (
+            <Destination planets={AllPlanets} vehicles={AllVehicles} />
           ) : (
             <></>
           )}
