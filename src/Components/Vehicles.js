@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
+import { AuthContext } from "../Context/AuthProvider.js";
 import {
   FormControl,
   FormLabel,
@@ -8,47 +9,45 @@ import {
 } from "@mui/material";
 
 function Vehicles(props) {
+  const { AllVehicles, selectedVehicle, setSelectedVehicle } =
+    useContext(AuthContext);
 
-  const handleVehicleCount = (selectedVehicle, vehicleCount, AllVehicles) => {
-    AllVehicles.map((vehicle, key) =>
-      selectedVehicle.includes(vehicle.name)
-        ? (vehicleCount[key] -= 1)
-        : vehicleCount[key] === vehicle.total_no
-    );
+    const calculateVehicleLeft = (AllVehicles, selectedVehicle, prevSelectedVehicle) => {
+      
+     
+    }
 
-    console.log(vehicleCount);
-  };
-
-  useEffect(() => {
-    
-  }, [props.selectedVehicle, props.vehicleCount]);
+    const OnSelectVehicle = (e, index) => {
+      const clonedSelectedVehicle = JSON.parse(JSON.stringify(selectedVehicle));
+    clonedSelectedVehicle[index] = e.target.value;
+    setSelectedVehicle(clonedSelectedVehicle);
+    }
 
   return (
-    <FormControl>
-      <FormLabel id="demo-controlled-radio-buttons-group">
-        Select Vehicle
-      </FormLabel>
-      <RadioGroup
-        aria-labelledby="demo-controlled-radio-buttons-group"
-        name="controlled-radio-buttons-group"
-        value={props.selectedVehicle[props.index]}
-        onChange={(e) => {props.OnSelectVehicle(e, props.index)}}
-      >
-        {props.Vehicles.map((vehicle, index) => {
-          return (
-            <>
-              <FormControlLabel
-                value={vehicle.name}
-                control={
-                  <Radio disabled={props.vehicleCount[index] <= 0 ? true : false} />
-                }
-                label={vehicle.name + "(" + props.vehicleCount[index] + ")"}
-              />
-            </>
-          );
-        })}
-      </RadioGroup>
-    </FormControl>
+    <>
+      <FormControl>
+        <FormLabel id="demo-radio-buttons-group-label">
+          Select Vehicle
+        </FormLabel>
+        <RadioGroup
+          aria-labelledby="demo-radio-buttons-group-label"
+          name="radio-buttons-group"
+          onChange = {e => OnSelectVehicle(e,props.index )}
+        >
+          {AllVehicles.map((vehicle) => {
+            return (
+              <>
+                <FormControlLabel
+                  value={vehicle.name}
+                  control={<Radio />}
+                  label={vehicle.name}
+                />
+              </>
+            );
+          })}
+        </RadioGroup>
+      </FormControl>
+    </>
   );
 }
 

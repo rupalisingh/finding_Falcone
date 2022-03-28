@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider.js";
 import "../css/Destination.css";
+import Vehicles from "../Components/Vehicles"
 
 function Destination() {
   const { AllPlanets, selectedPlanets, SetselectedPlanets } =
@@ -14,10 +15,9 @@ function Destination() {
 
   const OptionsToRender = AllPlanets
     ? AllPlanets.map((planet, index) => {
-        let id = "" + index;
         if (!selectedPlanets.includes(planet.name)) {
           return (
-            <option key={id} value={planet.name}>
+            <option value={planet.name}>
               {planet.name}{" "}
             </option>
           );
@@ -49,7 +49,10 @@ function Destination() {
                 </select>
                 <>
                   {selectedPlanets[index] ? (
+                    <>
                     <div>Distance - {getDistance(index)}</div>
+                    <Vehicles index = {index}/>
+                    </>
                   ) : (
                     <></>
                   )}
