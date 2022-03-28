@@ -20,12 +20,7 @@ function Vehicles(props) {
   };
 
   useEffect(() => {
-    // handleVehicleCount(
-    //   props.selectedVehicle,
-    //   props.vehicleCount,
-    //   props.Vehicles
-    // );
-    // console.log(props.Vehicles.total_no)
+    
   }, [props.selectedVehicle, props.vehicleCount]);
 
   return (
@@ -37,9 +32,7 @@ function Vehicles(props) {
         aria-labelledby="demo-controlled-radio-buttons-group"
         name="controlled-radio-buttons-group"
         value={props.selectedVehicle[props.index]}
-        onChange={(e) => {props.OnSelectVehicle(e, props.index) ; handleVehicleCount(props.selectedVehicle,
-          props.vehicleCount,
-          props.Vehicles)}}
+        onChange={(e) => {props.OnSelectVehicle(e, props.index)}}
       >
         {props.Vehicles.map((vehicle, index) => {
           return (

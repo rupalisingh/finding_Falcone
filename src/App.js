@@ -1,9 +1,12 @@
-import './App.css';
-import Main from './Main'
+import "./App.css";
+import Main from "./Main";
+import AuthProvider from "./Context/AuthProvider";
 
 function App() {
   return (
-    <Main/>
+    <AuthProvider>
+      <Main />
+    </AuthProvider>
   );
 }
 
@@ -86,4 +89,3 @@ export default App;
 
 //   return optionsToRender;
 // };
-
