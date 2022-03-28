@@ -15,7 +15,7 @@ return (
       <div className="center-body">
         <div className="Destination-select">
           {AllPlanets && AllVehicles? (
-            <Destination planets={AllPlanets} vehicles={AllVehicles} />
+            <Destination/>
           ) : (
             <></>
           )}

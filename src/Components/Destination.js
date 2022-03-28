@@ -1,38 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Vehicles from "./Vehicles";
-// import { Card, FormControl, InputLabel } from "@mui/material";
+import React, { useContext } from "react";
+import { AuthContext } from "../Context/AuthProvider.js";
 import "../css/Destination.css";
 
-function Destination(props) {
-  const [selectedPlanets, SetselectedPlanets] = useState([
-    null,
-    null,
-    null,
-    null,
-  ]);
-
-  const [selectedVehicle, setSelectedVehicle] = useState([
-    null,
-    null,
-    null,
-    null,
-  ]);
-
-  const [vehicleCount, setVehicleCount] = useState([null, null, null, null]);
-
-  const HandleVehicleCount = (Allvehicle) => {
-    const clonedVehicleCount = JSON.parse(JSON.stringify(vehicleCount));
-    Allvehicle.map(
-      (vehicle, key) => (clonedVehicleCount[key] = vehicle.total_no)
-    );
-    setVehicleCount(clonedVehicleCount);
-  };
-
-  const OnSelectVehicle = (e, key) => {
-    const clonedSelectedVehicle = JSON.parse(JSON.stringify(selectedVehicle));
-    clonedSelectedVehicle[key] = e.target.value;
-    setSelectedVehicle(clonedSelectedVehicle);
-  };
+function Destination() {
+  const { AllPlanets, selectedPlanets, SetselectedPlanets } =
+    useContext(AuthContext);
 
   const OnSelectPlanet = (e, key) => {
     const clonedSelectedPlanets = JSON.parse(JSON.stringify(selectedPlanets));
@@ -40,72 +12,48 @@ function Destination(props) {
     SetselectedPlanets(clonedSelectedPlanets);
   };
 
-  const CustomSelectComponents = ({ value, options, OnSelect }) => {
-    return (
-      <select value={value} onChange={OnSelect}>
-        <option> -- Select a Planet -- </option>
-        {options.map((option) => {
+  const OptionsToRender = AllPlanets
+    ? AllPlanets.map((planet, index) => {
+        let id = "" + index;
+        if (!selectedPlanets.includes(planet.name)) {
           return (
-            <option key={option.name} value={option.name}>
-              {option.name}
+            <option key={id} value={planet.name}>
+              {planet.name}{" "}
             </option>
           );
-        })}
-      </select>
+        }
+      })
+    : null;
+
+  const getDistance = (index) => {
+    const choosenPlanet = AllPlanets.filter(
+      (planet) => planet.name === selectedPlanets[index]
     );
+    return choosenPlanet[0].distance;
   };
-
-  const OptionsToRender = (Alloptions, AllselectedOptions, index) => {
-    const optionstoRender =
-      AllselectedOptions[index] === null
-        ? Alloptions.filter(
-            (option) =>
-              !AllselectedOptions.some(
-                (selectedOption) =>
-                  option && selectedOption && option.name === selectedOption
-              )
-          )
-        : Alloptions;
-    return optionstoRender;
-  };
-
-  useEffect(() => {
-    HandleVehicleCount(props.vehicles);
-  }, [selectedPlanets]);
 
   return (
     <>
       <div className="Parent_Card">
         {selectedPlanets.map((planet, index) => {
-          const options = OptionsToRender(
-            props.planets,
-            selectedPlanets,
-            index
-          );
           return (
             <>
               <div className="PlanetsAndVehicles">
-                <CustomSelectComponents
-                  value={
-                    selectedPlanets[index] != null ? selectedPlanets[index] : ""
-                  }
-                  options={options}
-                  OnSelect={(e) => OnSelectPlanet(e, index)}
+                <select
                   key={index}
-                />
-                {selectedPlanets[index] != null ? (
-                  <Vehicles
-                    selectedPlanets={selectedPlanets}
-                    Vehicles={props.vehicles}
-                    Destination={props.planets}
-                    selectedVehicle={selectedVehicle}
-                    OnSelectVehicle={OnSelectVehicle}
-                    vehicleCount={vehicleCount}
-                    index={index}
-                  />
-                ) : (
-                  <></>
-                )}
+                  value={selectedPlanets[index]}
+                  onChange={(e) => OnSelectPlanet(e, index)}
+                >
+                  <option value = "-1">-- Select Planet --</option>
+                  {OptionsToRender}
+                </select>
+                <>
+                  {selectedPlanets[index] ? (
+                    <div>Distance - {getDistance(index)}</div>
+                  ) : (
+                    <></>
+                  )}
+                </>
               </div>
             </>
           );

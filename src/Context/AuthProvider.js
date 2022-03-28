@@ -6,6 +6,20 @@ export const AuthContext = React.createContext();
 function AuthProvider({ children }) {
   const [AllPlanets, SetAllPlanets] = useState([{}]);
   const [AllVehicles, SetAllVehicles] = useState([{}]);
+  const [selectedPlanets, SetselectedPlanets] = useState([
+    null,
+    null,
+    null,
+    null,
+  ]);
+
+  const [selectedVehicle, setSelectedVehicle] = useState([
+    null,
+    null,
+    null,
+    null,
+  ]);
+
 
   const getPlanets = async () => {
     let response = await axios.get("https://findfalcone.herokuapp.com/planets");
@@ -31,6 +45,10 @@ function AuthProvider({ children }) {
   const value = {
     AllPlanets,
     AllVehicles,
+    selectedPlanets,
+    selectedVehicle,
+    SetselectedPlanets,
+    setSelectedVehicle
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
