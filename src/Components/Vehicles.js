@@ -20,38 +20,18 @@ function Vehicles(props) {
   const currentSelectedVehicle = useRef(-1);
   const previousSelectedVehicle = useRef(-1);
 
-  const calculateVehicleLeft = (
-    AllVehicles,
-    vehicleId,
-    setVehicleCount,
-    VehicleCount,
-    selectedVehicle
-  ) => {
-    if (selectedVehicle[props.index] == null) {
-      return VehicleCount[vehicleId];
-    } else {
-      const clonedVehiclecount = JSON.parse(JSON.stringify(VehicleCount));
-      console.log(currentSelectedVehicle.current, previousSelectedVehicle);
-      const getcurrentindex = AllVehicles.findIndex(
-        (vehicle) => vehicle.name === currentSelectedVehicle.current
-      );
-      const getPreviousIndex = AllVehicles.findIndex(
-        (vehicle) => vehicle.name === previousSelectedVehicle.current
-      );
-      getcurrentindex !== -1 ? (
-        (clonedVehiclecount[getcurrentindex] -= 1)
-      ) : (
-        <></>
-      );
-
-      getPreviousIndex !== -1 && getPreviousIndex != null ? (
-        (clonedVehiclecount[getPreviousIndex] += 1)
-      ) : (
-        <></>
-      );
-      setVehicleCount(clonedVehiclecount);
-      return VehicleCount[vehicleId];
-    }
+  const calculateVehicleLeft = () => {
+    const clonedVehicleCount = JSON.parse(JSON.stringify(VehicleCount));
+    const originalCount = AllVehicles.map(vehicle => vehicle.total_no)
+    const getCurrentIndex = AllVehicles.findIndex(
+      (vehicle) => vehicle.name === currentSelectedVehicle.current
+    );
+    const getPreviousIndex = AllVehicles.findIndex(vehicle => vehicle.name === previousSelectedVehicle.current)
+    clonedVehicleCount[getCurrentIndex] > 0 ? clonedVehicleCount[getCurrentIndex] -= 1 : <></>
+    clonedVehicleCount[getPreviousIndex] < originalCount[getPreviousIndex] ? clonedVehicleCount[getPreviousIndex] += 1 : <></>
+    setVehicleCount(clonedVehicleCount)
+    console.log(VehicleCount)
+    return VehicleCount
   };
 
   const OnSelectVehicle = (e, index) => {
@@ -59,8 +39,8 @@ function Vehicles(props) {
     previousSelectedVehicle.current = clonedSelectedVehicle[index];
     clonedSelectedVehicle[index] = e.target.value;
     currentSelectedVehicle.current = e.target.value;
-    console.log(previousSelectedVehicle, currentSelectedVehicle);
     setSelectedVehicle(clonedSelectedVehicle);
+    calculateVehicleLeft()
   };
 
   return (
@@ -80,18 +60,7 @@ function Vehicles(props) {
                 <FormControlLabel
                   value={vehicle.name}
                   control={<Radio />}
-                  label={
-                    vehicle.name +
-                    "(" +
-                    calculateVehicleLeft(
-                      AllVehicles,
-                      id,
-                      setVehicleCount,
-                      VehicleCount,
-                      selectedVehicle
-                    ) +
-                    ")"
-                  }
+                  label={vehicle.name + "(" + VehicleCount[id] + ")"}
                 />
               </>
             );
