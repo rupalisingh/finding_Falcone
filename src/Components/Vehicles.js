@@ -87,7 +87,7 @@ function Vehicles(props) {
                 <FormControlLabel
                   value={vehicle.name}
                   control={<Radio disabled={disabled} />}
-                  label={vehicle.name + "(" + VehicleCount[id] + ")"}
+                  label={vehicle.name + "(" + VehicleCount[id] + "/" + vehicle.total_no + ")"}
                 />
               </>
             );
