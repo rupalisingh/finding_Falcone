@@ -1,11 +1,12 @@
 import React, {useContext} from "react";
 import Button from '@mui/material/Button';
 import Destination from "./Components/Destination";
+import TimeTaken from "./Components/TimeTaken";
 import Navbar from "./Components/Navbar";
 import {AuthContext} from "../src/Context/AuthProvider"
 
 function Main() {
-const {AllPlanets, AllVehicles} = useContext(AuthContext)
+const {AllPlanets, AllVehicles, Total_time} = useContext(AuthContext)
 return (
   <>
       <Navbar />
@@ -19,7 +20,9 @@ return (
             <></>
           )}
         </div>
-        <div className="time-taken">Time Taken</div>
+        <div className="time-taken">
+{Total_time}
+        </div>
       </div>
       <div className="submit-button">
 

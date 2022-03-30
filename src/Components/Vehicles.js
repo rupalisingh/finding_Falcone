@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../Context/AuthProvider.js";
 import {
   FormControl,
@@ -11,17 +11,21 @@ import {
 function Vehicles(props) {
   const {
     AllVehicles,
+    AllPlanets,
     selectedVehicle,
     setSelectedVehicle,
     VehicleCount,
     setVehicleCount,
-    currentSelectedVehicle
-    
+    currentSelectedVehicle,
+    selectedPlanets,
+    settimeTaken,
+    timeTaken,
+    Total_time,
+    setTotal_time
   } = useContext(AuthContext);
 
   // const currentSelectedVehicle = useRef(-1);
   const previousSelectedVehicle = useRef(-1);
-  console.log(currentSelectedVehicle)
 
   const calculateVehicleLeft = () => {
     const clonedVehicleCount = JSON.parse(JSON.stringify(VehicleCount));
@@ -54,17 +58,30 @@ function Vehicles(props) {
     currentSelectedVehicle.current = e.target.value;
     setSelectedVehicle(clonedSelectedVehicle);
     calculateVehicleLeft();
+    calculateTime(index, clonedSelectedVehicle);
   };
 
   const evaluateDisability = (name) => {
-    if(selectedVehicle[props.index] === null){
-      return true
-    }else{
-      return !selectedVehicle[props.index].includes(name)
+    if (selectedVehicle[props.index] === null) {
+      return true;
+    } else {
+      return !selectedVehicle[props.index].includes(name);
     }
-  }
+  };
 
-  
+  const calculateTime = (index, clonedSelectedVehicle) => {
+    // console.log(clonedSelectedVehicle)
+    // console.log(selectedPlanets)
+    const getSpeed = AllVehicles.filter(vehicle => clonedSelectedVehicle[index] === vehicle.name)[0].speed
+    const getDistance = AllPlanets.filter(planet => selectedPlanets[index] === planet.name)[0].distance
+    const clonedTimeValues = JSON.parse(JSON.stringify(timeTaken))
+    const time = getDistance / getSpeed
+    clonedTimeValues[index] = time
+    const total_time = clonedTimeValues.reduce((prev, curr) => prev + curr)
+    settimeTaken(clonedTimeValues);
+    setTotal_time(total_time)
+  };
+
   return (
     <>
       <FormControl>
@@ -77,17 +94,28 @@ function Vehicles(props) {
           onChange={(e) => OnSelectVehicle(e, props.index)}
         >
           {AllVehicles.map((vehicle, id) => {
-            let disabled = false
-            currentSelectedVehicle.current = ""
-            if((vehicle.max_distance < props.PlanetDistance || VehicleCount[id] === 0) && evaluateDisability(vehicle.name)){
-              disabled = true
+            let disabled = false;
+            currentSelectedVehicle.current = "";
+            if (
+              (vehicle.max_distance < props.PlanetDistance ||
+                VehicleCount[id] === 0) &&
+              evaluateDisability(vehicle.name)
+            ) {
+              disabled = true;
             }
             return (
               <>
                 <FormControlLabel
                   value={vehicle.name}
                   control={<Radio disabled={disabled} />}
-                  label={vehicle.name + "(" + VehicleCount[id] + "/" + vehicle.total_no + ")"}
+                  label={
+                    vehicle.name +
+                    "(" +
+                    VehicleCount[id] +
+                    "/" +
+                    vehicle.total_no +
+                    ")"
+                  }
                 />
               </>
             );
