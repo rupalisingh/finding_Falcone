@@ -20,6 +20,9 @@ function AuthProvider({ children }) {
     null,
   ]);
 
+  const [VehicleCount, setVehicleCount] = useState([])
+
+
 
   const getPlanets = async () => {
     let response = await axios.get("https://findfalcone.herokuapp.com/planets");
@@ -33,12 +36,20 @@ function AuthProvider({ children }) {
     return response.data;
   };
 
+  const GetVehicleCount = (AllVehicles) => {
+    const count = AllVehicles.map(vehicle => vehicle.total_no)
+    setVehicleCount(count)
+  }
+
+  
+
   useEffect(() => {
     (async () => {
       let res_P = await getPlanets();
       let res_V = await getVehicles();
       SetAllPlanets(res_P);
       SetAllVehicles(res_V);
+      GetVehicleCount(res_V)
     })();
   }, []);
 
@@ -47,8 +58,10 @@ function AuthProvider({ children }) {
     AllVehicles,
     selectedPlanets,
     selectedVehicle,
+    VehicleCount,
+    setVehicleCount,
     SetselectedPlanets,
-    setSelectedVehicle
+    setSelectedVehicle,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
