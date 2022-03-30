@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 export const AuthContext = React.createContext();
@@ -21,6 +21,7 @@ function AuthProvider({ children }) {
   ]);
 
   const [VehicleCount, setVehicleCount] = useState([])
+  const currentSelectedVehicle = useRef(-1);
 
 
 
@@ -59,6 +60,7 @@ function AuthProvider({ children }) {
     selectedPlanets,
     selectedVehicle,
     VehicleCount,
+    currentSelectedVehicle,
     setVehicleCount,
     SetselectedPlanets,
     setSelectedVehicle,

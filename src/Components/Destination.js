@@ -51,7 +51,7 @@ function Destination() {
                   {selectedPlanets[index] ? (
                     <>
                     <div>Distance - {getDistance(index)}</div>
-                    <Vehicles index = {index}/>
+                    <Vehicles index = {index} PlanetDistance = {getDistance(index)}/>
                     </>
                   ) : (
                     <></>
