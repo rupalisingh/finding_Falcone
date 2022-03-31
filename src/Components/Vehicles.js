@@ -2,7 +2,6 @@ import React, { useContext, useRef } from "react";
 import { AuthContext } from "../Context/AuthProvider.js";
 import {
   FormControl,
-  FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,

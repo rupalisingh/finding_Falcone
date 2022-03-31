@@ -10,7 +10,7 @@ import "./Main.css"
 import "./css/Destination.css"
 
 function Main() {
-  const { AllPlanets, AllVehicles, Total_time } = useContext(AuthContext);
+  const { AllPlanets, AllVehicles } = useContext(AuthContext);
   const navigate = useNavigate();
   const OnSubmit = (e) => {
     e.preventDefault();

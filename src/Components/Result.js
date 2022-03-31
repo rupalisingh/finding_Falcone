@@ -3,7 +3,7 @@ import { AuthContext } from "../Context/AuthProvider";
 import axios from "axios";
 
 function Result() {
-  const { selectedVehicle, selectedPlanets, Total_time } =
+  const { selectedVehicle, selectedPlanets } =
     useContext(AuthContext);
 
   const getToken = async () => {

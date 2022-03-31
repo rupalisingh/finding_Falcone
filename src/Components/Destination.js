@@ -1,17 +1,27 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider.js";
 import "../css/Destination.css";
-import Vehicles from "../Components/Vehicles"
-import Paper from "@mui/material/Paper";
-
+import Vehicles from "../Components/Vehicles";
+import {
+  Paper,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+} from "@mui/material";
 
 function Destination() {
-  const { AllPlanets, selectedPlanets, SetselectedPlanets } =
-    useContext(AuthContext);
+  const {
+    AllPlanets,
+    selectedPlanets,
+    SetselectedPlanets,
+    currentSelectedPlanet,
+  } = useContext(AuthContext);
 
   const OnSelectPlanet = (e, key) => {
     const clonedSelectedPlanets = JSON.parse(JSON.stringify(selectedPlanets));
     clonedSelectedPlanets[key] = e.target.value;
+    currentSelectedPlanet.current = e.target.value;
     SetselectedPlanets(clonedSelectedPlanets);
   };
 
@@ -19,9 +29,9 @@ function Destination() {
     ? AllPlanets.map((planet, index) => {
         if (!selectedPlanets.includes(planet.name)) {
           return (
-            <option value={planet.name}>
-              {planet.name}{" "}
-            </option>
+            <MenuItem key={index} value={planet.name}>
+              {planet.name}
+            </MenuItem>
           );
         }
       })
@@ -39,29 +49,41 @@ function Destination() {
       <div className="Parent_Card">
         {selectedPlanets.map((planet, index) => {
           return (
-            <div className="PlanetsAndVehicles">
-            <Paper elevation={5}>
-              <div >
-                <select
-                  key={index}
-                  value={selectedPlanets[index]}
-                  onChange={(e) => OnSelectPlanet(e, index)}
-                >
-                  <option value = "-1">-- Select Planet --</option>
-                  {OptionsToRender}
-                </select>
-                <>
-                  {selectedPlanets[index] ? (
-                    <>
-                    <div className="Distance_measure">Distance - {getDistance(index)}</div>
-                    <Vehicles index = {index} PlanetDistance = {getDistance(index)}/>
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </>
-              </div>
-            </Paper>
+            <div className="PlanetsAndVehicles" key={index}>
+              <Paper elevation={5}>
+                <FormControl fullWidth key = {index}>
+                  <InputLabel id="demo-simple-select-label">
+                    Destination {index + 1}
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    key={index}
+                    value={selectedPlanets[index]}
+                    onChange={(e) => OnSelectPlanet(e, index)}
+                  >
+                    <MenuItem key={index} value={selectedPlanets[index]}>
+                      {selectedPlanets[index]}
+                    </MenuItem>
+                    {OptionsToRender}
+                  </Select>
+                  <>
+                    {selectedPlanets[index] ? (
+                      <>
+                        <div className="Distance_measure">
+                          Distance - {getDistance(index)}
+                        </div>
+                        <Vehicles
+                          index={index}
+                          PlanetDistance={getDistance(index)}
+                        />
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                </FormControl>
+              </Paper>
             </div>
           );
         })}

@@ -3,7 +3,7 @@ import {AuthContext} from '../Context/AuthProvider'
 import "../css/TimeTaken.css"
 
 function TimeTaken() {
-    const {selectedVehicle, selectedPlanets, Total_time, AllVehicles} = useContext(AuthContext)
+    const {selectedVehicle, selectedPlanets, Total_time} = useContext(AuthContext)
     
   return (
       <>
@@ -11,7 +11,7 @@ function TimeTaken() {
       <div>TimeTaken - {Total_time}</div>
       {selectedVehicle.map((vehicle, index) => {
           return(
-              <div className='Each_selected_Option'>{vehicle} to {selectedPlanets[index]} </div>
+              <div className='Each_selected_Option' key = {index}>{vehicle} to {selectedPlanets[index]} </div>
           )
       })}
       </div>
