@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { AuthContext } from "../Context/AuthProvider.js";
 import "../css/Destination.css";
 import Vehicles from "../Components/Vehicles"
+import Paper from "@mui/material/Paper";
+
 
 function Destination() {
   const { AllPlanets, selectedPlanets, SetselectedPlanets } =
@@ -37,8 +39,9 @@ function Destination() {
       <div className="Parent_Card">
         {selectedPlanets.map((planet, index) => {
           return (
-            <>
-              <div className="PlanetsAndVehicles">
+            <div className="PlanetsAndVehicles">
+            <Paper elevation={5}>
+              <div >
                 <select
                   key={index}
                   value={selectedPlanets[index]}
@@ -50,7 +53,7 @@ function Destination() {
                 <>
                   {selectedPlanets[index] ? (
                     <>
-                    <div>Distance - {getDistance(index)}</div>
+                    <div className="Distance_measure">Distance - {getDistance(index)}</div>
                     <Vehicles index = {index} PlanetDistance = {getDistance(index)}/>
                     </>
                   ) : (
@@ -58,7 +61,8 @@ function Destination() {
                   )}
                 </>
               </div>
-            </>
+            </Paper>
+            </div>
           );
         })}
       </div>

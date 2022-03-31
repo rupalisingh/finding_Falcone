@@ -19,6 +19,12 @@
     justify-content: space-evenly;
 }
 
+.MuiPaper-root{
+    width: 14rem;
+    text-align: center;
+    margin-right: 2rem;
+}
+
 .Destination-select{
     width: 100%;
 }
@@ -26,7 +32,6 @@
 .Parent_Card {
     display: flex;
     flex-direction: row;
-    border: 1px solid red;
     justify-content: space-evenly;
 
 }
@@ -39,6 +44,17 @@
     display: flex;
     flex-flow: column;
 }
+
+.Distance_measure{
+    text-align: left;
+    margin-left: 1rem;
+    font-family: cursive;
+    margin-bottom: 0.8rem;
+    margin-top: 0.8rem;
+    border-bottom: 3px solid cadetblue;
+    margin-right: 0.8rem;
+}
+
 
 .submit-button{
     width: 100%;

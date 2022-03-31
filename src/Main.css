@@ -1,5 +1,4 @@
 .Header {
-  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   align-self: center;
@@ -9,7 +8,6 @@
 }
 
 .body-header {
-  /* border: 1px solid red; */
   display: flex;
   justify-content: center;
   font-size: 50px;
@@ -19,18 +17,15 @@
 }
 
 .Destination_card {
-  border: 1px solid red;
   height : 26rem;
   display: flex;
   flex-direction: row;
 }
 
 .each_card {
-  border: 1px solid red;
 }
 
 .destination_vehicle {
-    border : 1px solid green;
     padding-top: 3%;
     display: flex;
 
@@ -50,5 +45,8 @@
 }
 
 .button {
-    width: 100%;
+}
+
+.time-taken{
+  font-family: cursive;
 }

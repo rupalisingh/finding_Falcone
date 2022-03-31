@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { AuthContext } from "../Context/AuthProvider.js";
 import {
   FormControl,
@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
+import "../css/Vehicle.css"
 
 function Vehicles(props) {
   const {
@@ -20,7 +21,6 @@ function Vehicles(props) {
     selectedPlanets,
     settimeTaken,
     timeTaken,
-    Total_time,
     setTotal_time
   } = useContext(AuthContext);
 
@@ -85,9 +85,6 @@ function Vehicles(props) {
   return (
     <>
       <FormControl>
-        <FormLabel id="demo-radio-buttons-group-label">
-          Select Vehicle
-        </FormLabel>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
           name="radio-buttons-group"
