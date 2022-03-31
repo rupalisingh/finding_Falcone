@@ -1,50 +1,22 @@
-.Header {
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  font-size: 80px;
-  font-weight: bold;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+
+.heading{
+  font-size: 5vw;
+  font-variant-caps: petite-caps;
+  font-weight: 700;
+  text-align-last: center;
 }
 
-.body-header {
-  display: flex;
-  justify-content: center;
-  font-size: 50px;
-  padding-top: 3%;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-
+.subheading{
+  font-size: 3vw;
+  font-variant-caps: petite-caps;
+  font-weight: 700;
+  text-align-last: center;
+  margin-bottom: 73px;
 }
-
-.Destination_card {
-  height : 26rem;
-  display: flex;
-  flex-direction: row;
-}
-
-.each_card {
-}
-
-.destination_vehicle {
-    padding-top: 3%;
-    display: flex;
-
-}
-
-.select-destination {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-}
-
-.input-group {
-    border: 1px solid ;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-}
-
-.button {
+.submit-button{
+  width: 100%;
+  text-align: -webkit-center;
+  margin-top: 25px;
 }
 
 .time-taken{

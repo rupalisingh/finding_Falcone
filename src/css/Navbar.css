@@ -1,10 +1,14 @@
 .navbar {
     display: flex;
     background-color: darkturquoise;
-    font-size: larger;
-    font-weight: 700;
-    font-family: cursive;
+    
 }
-li.nav-item > a.nav-link {
-    color : whitesmoke
+
+.MuiButton-root{
+    margin-top: 2rem;
+}
+
+li.nav-item{
+    margin-top: 1rem;
+    justify-content: space-around;
 }

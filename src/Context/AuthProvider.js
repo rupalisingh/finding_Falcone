@@ -24,8 +24,6 @@ function AuthProvider({ children }) {
   const [timeTaken, settimeTaken] = useState([0,0,0,0])
   const [Total_time, setTotal_time] = useState(0)
   const currentSelectedVehicle = useRef(-1);
-  const currentSelectedPlanet = useRef('Select a Destination')
-
 
 
   const getPlanets = async () => {
@@ -66,7 +64,6 @@ function AuthProvider({ children }) {
     currentSelectedVehicle,
     timeTaken,
     Total_time,
-    currentSelectedPlanet,
     setVehicleCount,
     SetselectedPlanets,
     setSelectedVehicle,
