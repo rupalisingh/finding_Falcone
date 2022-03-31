@@ -21,11 +21,19 @@ function Vehicles(props) {
     selectedPlanets,
     settimeTaken,
     timeTaken,
-    setTotal_time
+    setTotal_time,
+    setSubmitButton,
+    
   } = useContext(AuthContext);
 
   // const currentSelectedVehicle = useRef(-1);
   const previousSelectedVehicle = useRef(-1);
+
+  const SubmitButtonState = (selectedVehiclearr) => {
+    const res = selectedVehiclearr.includes(null) ? false : true
+    console.log(res)
+    setSubmitButton(res)
+  }
 
   const calculateVehicleLeft = () => {
     const clonedVehicleCount = JSON.parse(JSON.stringify(VehicleCount));
@@ -59,6 +67,7 @@ function Vehicles(props) {
     setSelectedVehicle(clonedSelectedVehicle);
     calculateVehicleLeft();
     calculateTime(index, clonedSelectedVehicle);
+    SubmitButtonState(clonedSelectedVehicle)
   };
 
   const evaluateDisability = (name) => {
@@ -70,8 +79,6 @@ function Vehicles(props) {
   };
 
   const calculateTime = (index, clonedSelectedVehicle) => {
-    // console.log(clonedSelectedVehicle)
-    // console.log(selectedPlanets)
     const getSpeed = AllVehicles.filter(vehicle => clonedSelectedVehicle[index] === vehicle.name)[0].speed
     const getDistance = AllPlanets.filter(planet => selectedPlanets[index] === planet.name)[0].distance
     const clonedTimeValues = JSON.parse(JSON.stringify(timeTaken))

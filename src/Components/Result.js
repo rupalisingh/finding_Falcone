@@ -40,7 +40,8 @@ function Result() {
     return response;
   };
 
-  const GoHome = () => {
+  const GoHome = (e) => {
+    e.preventDefault();
     navigate("/");
     window.location.reload()
   };

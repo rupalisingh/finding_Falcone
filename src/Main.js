@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import { Button, Paper } from "@mui/material";
 import Destination from "./Components/Destination";
 import Navbar from "./Components/Navbar";
@@ -9,12 +9,13 @@ import "./Main.css";
 import "./css/Destination.css";
 
 function Main() {
-  const { AllPlanets, AllVehicles } = useContext(AuthContext);
+  const { AllPlanets, AllVehicles,SubmitButton } = useContext(AuthContext);
   const navigate = useNavigate();
   const OnSubmit = (e) => {
     e.preventDefault();
     navigate("/Result");
   };
+
   return (
     <>
       <Navbar />
@@ -30,7 +31,7 @@ function Main() {
             </Paper>
           </div>
       <div className="submit-button">
-        <Button className="button" variant="contained" onClick={OnSubmit}>
+        <Button className="button" variant="contained" onClick={OnSubmit} disabled = {!SubmitButton}>
           Find Falcone!
         </Button>
       </div>

@@ -24,6 +24,7 @@ function AuthProvider({ children }) {
   const [timeTaken, settimeTaken] = useState([0,0,0,0])
   const [Total_time, setTotal_time] = useState(0)
   const [Loading, setLoading] = useState(true)
+  const [SubmitButton,setSubmitButton] = useState(false)
   const currentSelectedVehicle = useRef(-1);
 
 
@@ -66,12 +67,14 @@ function AuthProvider({ children }) {
     timeTaken,
     Total_time,
     Loading,
+    SubmitButton,
     setVehicleCount,
     SetselectedPlanets,
     setSelectedVehicle,
     settimeTaken,
     setTotal_time,
-    setLoading
+    setLoading,
+    setSubmitButton
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
