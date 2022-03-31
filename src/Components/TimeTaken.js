@@ -11,7 +11,7 @@ function TimeTaken() {
       <div>TimeTaken - {Total_time}</div>
       {selectedVehicle.map((vehicle, index) => {
           return(
-              <div>{vehicle} to {selectedPlanets[index]} </div>
+              <div className='Each_selected_Option'>{vehicle} to {selectedPlanets[index]} </div>
           )
       })}
       </div>

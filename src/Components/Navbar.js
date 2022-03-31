@@ -8,12 +8,12 @@ function Navbar() {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">
+              <a className ="nav-link" href="https://geektrust.sgp1.cdn.digitaloceanspaces.com/assets/v2/website/coding-challenges/Geektrust-UI-Problems1.pdf">
                 GeekTrust
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a className = "nav-link" href="#">
                 Reset
               </a>
             </li>

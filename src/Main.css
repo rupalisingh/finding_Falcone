@@ -38,7 +38,7 @@
 }
 
 .input-group {
-    border: 1px solid rebeccapurple;
+    border: 1px solid ;
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -49,4 +49,5 @@
 
 .time-taken{
   font-family: cursive;
+  height: 100%;
 }

@@ -1,11 +1,10 @@
 .navbar {
     display: flex;
-    background-color: skyblue;
+    background-color: darkturquoise;
     font-size: larger;
     font-weight: 700;
     font-family: cursive;
 }
-
-ul{
-    
+li.nav-item > a.nav-link {
+    color : whitesmoke
 }
