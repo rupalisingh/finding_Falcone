@@ -2,22 +2,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/AuthProvider";
 import axios from "axios";
 import Navbar from "./Navbar";
-import '../css/Result.css'
-import { CircularProgress } from "@mui/material";
-
+import "../css/Result.css";
+import { Button, CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function Result() {
-  const {
-    selectedVehicle,
-    selectedPlanets,
-    Total_time,
-    setLoading,
-    Loading
-  } = useContext(AuthContext);
+  const { selectedVehicle, selectedPlanets, Total_time, setLoading, Loading } =
+    useContext(AuthContext);
 
-  const [Result, setResult] = useState([null, null])
+  const [Result, setResult] = useState([null, null]);
+  let FinalResult = [];
 
-  let FinalResult = []
+  const navigate = useNavigate();
 
   const getToken = async () => {
     let response = await axios({
@@ -44,6 +40,11 @@ function Result() {
     return response;
   };
 
+  const GoHome = () => {
+    navigate("/");
+    window.location.reload()
+  };
+
   useEffect(() => {
     (async () => {
       const token = await getToken();
@@ -52,12 +53,12 @@ function Result() {
         selectedPlanets,
         selectedVehicle
       );
-      FinalResult[0] = res.data.status
-      FinalResult[1] = res.data.planet_name
-      setResult(FinalResult)
-      console.log(Result)
-      console.log(res.data)
-      setLoading(false)
+      FinalResult[0] = res.data.status;
+      FinalResult[1] = res.data.planet_name;
+      setResult(FinalResult);
+      console.log(Result);
+      console.log(res.data);
+      setLoading(false);
     })();
   }, [Loading]);
   return (
@@ -66,22 +67,30 @@ function Result() {
       <div className="Result-body">
         {console.log(Result)}
 
-        {Loading && Result[0] == null && Result[1] == undefined ?  <CircularProgress /> : FinalResult ? (
+        {Loading && Result[0] == null && Result[1] == undefined ? (
+          <CircularProgress />
+        ) : FinalResult ? (
           <>
-            <div>
+            <div className="result-partone">
               {Result[0]}! Congratulations on Finding Falcone. King Shan is
               Mighty Pleased.
             </div>
-            <div>
-              Time Taken - {Total_time} Found on Planet - {Result[1]}
+            <div className="result-parttwo">
+              <div>Time Taken - {Total_time}</div>
+              <div>Found on Planet - {Result[1]}</div>
             </div>
           </>
         ) : (
           <>
-            Uhh ooo ! You couldnt find Falcone. King Shan is going to be superr
-            pissed!!
+            <div>
+              Uhh ooo ! You couldnt find Falcone. King Shan is going to be
+              superr pissed!!
+            </div>
           </>
         )}
+        <Button variant="contained" onClick={GoHome}>
+          Play Again
+        </Button>
       </div>
     </>
   );
