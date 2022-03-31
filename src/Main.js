@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, Paper, Grid } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import Destination from "./Components/Destination";
 import Navbar from "./Components/Navbar";
 import TimeTaken from "./Components/TimeTaken";
@@ -18,7 +18,6 @@ function Main() {
   return (
     <>
       <Navbar />
-      <div className="heading">Finding Falcone</div>
       <div className="subheading">Select Planets you want to Search in!!</div>
           <div className="center-body">
             <div className="Destination-select">

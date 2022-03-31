@@ -1,6 +1,9 @@
 .navbar {
-    display: flex;
     background-color: darkturquoise;
+    width: 100%;
+    display: flex;
+    flex-basis: max-content;
+    justify-content: center;
     
 }
 
@@ -12,3 +15,10 @@ li.nav-item{
     margin-top: 1rem;
     justify-content: space-around;
 }
+
+.heading{
+    font-size: 5vw;
+    font-variant-caps: petite-caps;
+    font-weight: 700;
+    text-align-last: center;
+  }

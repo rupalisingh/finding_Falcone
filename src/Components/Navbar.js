@@ -10,7 +10,7 @@ function Navbar() {
   return (
     <>
       <div className="container-fluid nav_bg">
-        <div className="row navbar">
+        <div className="navbar">
           <div className="col-12 navbar">
             <nav className="navbar navbar-expand-lg navbar-light">
               <div className="container-fluid navbar" id="navbar-content">
@@ -41,7 +41,6 @@ function Navbar() {
                     </li>
                     <li className="nav-item">
                       <Button
-                        activeClassName="menu_active"
                         className="nav-link"
                         variant = 'outlined'
                         onClick ={Reset}
@@ -53,6 +52,7 @@ function Navbar() {
                 </div>
               </div>
             </nav>
+            <div className="heading">Finding Falcone</div>
           </div>
         </div>
       </div>
