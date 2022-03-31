@@ -68,7 +68,7 @@ function Result() {
       <div className="Result-body">
         {console.log(Result)}
 
-        {Loading && Result[0] == null && Result[1] == undefined ? (
+        {Loading && Result[0] == null && Result[1] === undefined ? (
           <CircularProgress />
         ) : FinalResult ? (
           <>

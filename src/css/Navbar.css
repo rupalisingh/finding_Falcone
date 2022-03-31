@@ -7,13 +7,26 @@
     
 }
 
+.navbar_content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .MuiButton-root{
     margin-top: 2rem;
 }
 
 li.nav-item{
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
     justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+}
+
+ul.navbar-nav{
+    display: block;
 }
 
 .heading{
@@ -21,4 +34,5 @@ li.nav-item{
     font-variant-caps: petite-caps;
     font-weight: 700;
     text-align-last: center;
+    width : 84%;
   }
