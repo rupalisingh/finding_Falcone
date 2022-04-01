@@ -16,28 +16,38 @@ function Result() {
   const navigate = useNavigate();
 
   const getToken = async () => {
-    let response = await axios({
-      method: "post",
-      url: "https://findfalcone.herokuapp.com/token",
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    return response.data;
+    try{
+      let response = await axios({
+        method: "post",
+        url: "https://findfalcone.herokuapp.com/token",
+        headers: {
+          Accept: "application/json",
+        },
+      });
+      return response.data;
+    }catch(e){
+      alert(e)
+    }
+    
   };
 
   const FindFalcone = async (token, planets, vehicles) => {
-    let response = await axios.post(
-      "https://findfalcone.herokuapp.com/find",
-      { token: token, planet_names: planets, vehicle_names: vehicles },
-      {
-        headers: {
-          Accept: " application/json ",
-          "Content-Type": " application/json ",
-        },
-      }
-    );
-    return response;
+    try{
+      let response = await axios.post(
+        "https://findfalcone.herokuapp.com/find",
+        { token: token, planet_names: planets, vehicle_names: vehicles },
+        {
+          headers: {
+            Accept: " application/json ",
+            "Content-Type": " application/json ",
+          },
+        }
+      );
+      return response;
+    }catch(e){
+      alert(e)
+    }
+    
   };
 
   const GoHome = (e) => {

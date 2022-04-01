@@ -29,15 +29,25 @@ function AuthProvider({ children }) {
 
 
   const getPlanets = async () => {
-    let response = await axios.get("https://findfalcone.herokuapp.com/planets");
-    return response.data;
+    try{
+      let response = await axios.get("https://findfalcone.herokuapp.com/planets");
+      return response.data;
+    }catch(e){
+      alert(e)
+    }
+   
   };
 
   const getVehicles = async () => {
-    let response = await axios.get(
-      "https://findfalcone.herokuapp.com/vehicles"
-    );
-    return response.data;
+    try{
+      let response = await axios.get(
+        "https://findfalcone.herokuapp.com/vehicles"
+      );
+      return response.data;
+    }catch(e){
+      alert(e)
+    }
+    
   };
 
   const GetVehicleCount = (AllVehicles) => {
