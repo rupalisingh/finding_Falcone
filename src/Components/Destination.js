@@ -14,9 +14,9 @@ import {
 
 function Destination() {
   const {
-    AllPlanets,
     selectedPlanets,
     SetselectedPlanets,
+    AllPlanets,
   } = useContext(AuthContext);
 
    const OnSelectPlanet = (e, key) => {
