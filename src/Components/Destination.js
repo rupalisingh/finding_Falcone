@@ -26,6 +26,7 @@ function Destination() {
   };
 
    const OptionsToRender = AllPlanets
+   // eslint-disable-next-line
     ? AllPlanets.map((planet, index) => {
         if (!selectedPlanets.includes(planet.name)) {
           return (
