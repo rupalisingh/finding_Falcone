@@ -19,13 +19,13 @@ function Destination() {
     SetselectedPlanets,
   } = useContext(AuthContext);
 
-  const OnSelectPlanet = (e, key) => {
+   const OnSelectPlanet = (e, key) => {
     const clonedSelectedPlanets = JSON.parse(JSON.stringify(selectedPlanets));
     clonedSelectedPlanets[key] = e.target.value;
     SetselectedPlanets(clonedSelectedPlanets);
   };
 
-  const OptionsToRender = AllPlanets
+   const OptionsToRender = AllPlanets
     ? AllPlanets.map((planet, index) => {
         if (!selectedPlanets.includes(planet.name)) {
           return (

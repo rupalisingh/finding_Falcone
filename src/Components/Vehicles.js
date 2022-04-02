@@ -6,8 +6,8 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
-import "../css/Vehicle.css"
-import "../css/Destination.css"
+import "../css/Vehicle.css";
+import "../css/Destination.css";
 
 function Vehicles(props) {
   const {
@@ -23,17 +23,15 @@ function Vehicles(props) {
     timeTaken,
     setTotal_time,
     setSubmitButton,
-    
   } = useContext(AuthContext);
 
   // const currentSelectedVehicle = useRef(-1);
   const previousSelectedVehicle = useRef(-1);
 
   const SubmitButtonState = (selectedVehiclearr) => {
-    const res = selectedVehiclearr.includes(null) ? false : true
-    console.log(res)
-    setSubmitButton(res)
-  }
+    const res = selectedVehiclearr.includes(null) ? false : true;
+    setSubmitButton(res);
+  };
 
   const calculateVehicleLeft = () => {
     const clonedVehicleCount = JSON.parse(JSON.stringify(VehicleCount));
@@ -44,18 +42,21 @@ function Vehicles(props) {
     const getPreviousIndex = AllVehicles.findIndex(
       (vehicle) => vehicle.name === previousSelectedVehicle.current
     );
+
+    // eslint-disable-next-line no-unused-expressions
     clonedVehicleCount[getCurrentIndex] > 0 ? (
       (clonedVehicleCount[getCurrentIndex] -= 1)
     ) : (
       <></>
     );
+
+    // eslint-disable-next-line no-unused-expressions
     clonedVehicleCount[getPreviousIndex] < originalCount[getPreviousIndex] ? (
       (clonedVehicleCount[getPreviousIndex] += 1)
     ) : (
       <></>
     );
     setVehicleCount(clonedVehicleCount);
-    console.log(VehicleCount);
     return VehicleCount;
   };
 
@@ -67,7 +68,7 @@ function Vehicles(props) {
     setSelectedVehicle(clonedSelectedVehicle);
     calculateVehicleLeft();
     calculateTime(index, clonedSelectedVehicle);
-    SubmitButtonState(clonedSelectedVehicle)
+    SubmitButtonState(clonedSelectedVehicle);
   };
 
   const evaluateDisability = (name) => {
@@ -79,14 +80,18 @@ function Vehicles(props) {
   };
 
   const calculateTime = (index, clonedSelectedVehicle) => {
-    const getSpeed = AllVehicles.filter(vehicle => clonedSelectedVehicle[index] === vehicle.name)[0].speed
-    const getDistance = AllPlanets.filter(planet => selectedPlanets[index] === planet.name)[0].distance
-    const clonedTimeValues = JSON.parse(JSON.stringify(timeTaken))
-    const time = getDistance / getSpeed
-    clonedTimeValues[index] = time
-    const total_time = clonedTimeValues.reduce((prev, curr) => prev + curr)
+    const getSpeed = AllVehicles.filter(
+      (vehicle) => clonedSelectedVehicle[index] === vehicle.name
+    )[0].speed;
+    const getDistance = AllPlanets.filter(
+      (planet) => selectedPlanets[index] === planet.name
+    )[0].distance;
+    const clonedTimeValues = JSON.parse(JSON.stringify(timeTaken));
+    const time = getDistance / getSpeed;
+    clonedTimeValues[index] = time;
+    const total_time = clonedTimeValues.reduce((prev, curr) => prev + curr);
     settimeTaken(clonedTimeValues);
-    setTotal_time(total_time)
+    setTotal_time(total_time);
   };
 
   return (

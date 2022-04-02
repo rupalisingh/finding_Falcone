@@ -68,7 +68,6 @@ function Result() {
       FinalResult[1] = res.data.planet_name;
       setResult(FinalResult);
       console.log(Result);
-      console.log(res.data);
       setLoading(false);
     })();
   }, [Loading]);
@@ -80,7 +79,7 @@ function Result() {
 
         {Loading && Result[0] == null && Result[1] === undefined ? (
           <CircularProgress />
-        ) : FinalResult ? (
+        ) : Result[0] === 'success' ? (
           <>
             <div className="result-partone">
               {Result[0]}! Congratulations on Finding Falcone. King Shan is
@@ -93,9 +92,9 @@ function Result() {
           </>
         ) : (
           <>
-            <div>
+            <div className="result-partone">
               Uhh ooo ! You couldnt find Falcone. King Shan is going to be
-              superr pissed!!
+              super pissed!! Better Luck Next Time!!
             </div>
           </>
         )}

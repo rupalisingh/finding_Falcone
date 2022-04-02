@@ -42,7 +42,6 @@ function Navbar() {
                       </Button>
                     </li>
                     <li className="nav-item">
-                      {console.log(url)}
                       {url === "http://localhost:3000/Result" ? (
                         <></>
                       ) : (
